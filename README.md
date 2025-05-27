@@ -24,6 +24,7 @@
 - PynamoDB (DynamoDB ORM)
 - DynamoDB
 - AWS SES
+- Localstack (for test)
 - Docker + Docker Compose
 
 ## Limitations of DynamoDB
@@ -38,7 +39,7 @@ To support all filter combinations with high performance in DynamoDB, we would n
 
 ### ✅ Use OpenSearch for Advanced Filtering & Analytics
 
-We recommend offloading filtering and analytical workloads to **OpenSearch**, which supports:
+I recommend offloading filtering and analytical workloads to **OpenSearch**, which supports:
 
 - Full-text search
 - Boolean queries with multiple filters
@@ -53,21 +54,4 @@ This approach provides:
 
 ### Data Sync Strategy
 
-You can sync changes from DynamoDB to OpenSearch using:
-
-- A Celery task triggered on model changes
-- DynamoDB Streams (in production)
-
-## API Endpoints
-
-- `POST /users`: Create a user
-- `POST /events`: Create an event
-- `POST /events/{id}/register`: Register a user
-- `GET /users/filter`: Filter users by attributes and event stats
-- `POST /emails/send`: Send emails using UTM tracking
-- `GET /analytics`: View analytics by UTM parameters
-
-## Development
-
-```bash
-docker-compose up --build
+We can sync changes from DynamoDB to OpenSearch using: DynamoDB Streams
