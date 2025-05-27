@@ -9,13 +9,6 @@ router = APIRouter()
 
 @router.post("", response_model=UserOut)
 def create_user(user: UserCreate):
-    # Check if user already exists
-    try:
-        existing = UserModel.get(user.id)
-    except UserModel.DoesNotExist:
-        existing = None
-    if existing:
-        raise HTTPException(status_code=400, detail="User already exists")
     user_item = UserModel(
         firstName=user.firstName,
         lastName=user.lastName,

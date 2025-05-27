@@ -56,3 +56,82 @@ We can sync changes from DynamoDB to OpenSearch using: DynamoDB Streams
 
 ![Architecture Diagram](./docs/architecture.png)
 
+
+## 📬 Sample API Requests
+
+### 📌 1. Create User
+```bash
+curl -X POST http://localhost:8000/users \
+  -H "Content-Type: application/json" \
+  -d '{
+    "firstName": "Alice",
+    "lastName": "Johnson",
+    "email": "alice@example.com",
+    "phoneNumber": "1234567890",
+    "avatar": "https://example.com/avatar.jpg",
+    "gender": "female",
+    "jobTitle": "Engineer",
+    "company": "TechCorp",
+    "city": "New York",
+    "state": "NY"
+  }'
+
+
+### 📌 2. Create Event
+```bash
+curl -X POST http://localhost:8000/events \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Tech Conference 2025",
+    "slug": "tech-conf-2025",
+    "description": "A major tech event.",
+    "startAt": "2025-08-01T09:00:00Z",
+    "endAt": "2025-08-01T17:00:00Z",
+    "venue": "NYC Convention Center",
+    "maxCapacity": 200,
+    "owner": "user-id-123",
+    "hosts": ["user-id-123"]
+  }'
+
+
+### 📌 3. Register User to Event
+```bash
+curl -X POST http://localhost:8000/events/event-id-123/register \
+  -H "Content-Type: application/json" \
+  -d '{"user_id": "user-id-456"}'
+
+
+### 📌 4. Filter Users
+```bash
+curl -G http://localhost:8000/users/filter \
+  --data-urlencode "company=TechCorp" \
+  --data-urlencode "city=New York" \
+  --data-urlencode "events_attended_min=1" \
+  --data-urlencode "events_hosted_min=0" \
+  --data-urlencode "sort_by=-firstName" \
+  --data-urlencode "limit=20"
+
+
+### 📌 5. Send Email to Users
+```bash
+curl -X POST http://localhost:8000/emails/send \
+  -H "Content-Type: application/json" \
+  -d '{
+    "filter": {
+      "company": "TechCorp",
+      "city": "New York"
+    },
+    "subject": "Join our next event!",
+    "body": "We invite you to our upcoming tech conference.",
+    "utm_source": "newsletter",
+    "utm_medium": "email",
+    "utm_campaign": "tech_conf_2025"
+  }'
+
+
+### 📌 6. View Analytics by UTM
+```bash
+curl -G http://localhost:8000/analytics/ \
+  --data-urlencode "utm_source=newsletter" \
+  --data-urlencode "utm_medium=email" \
+  --data-urlencode "utm_campaign=tech_conf_2025"

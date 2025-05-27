@@ -3,6 +3,7 @@ from collections import Counter
 
 from app.services.user_service import filter_users
 from app.services.email_service import queue_emails
+from app.models.outbox import EmailOutboxModel
 from app.schemas.email import EmailRequest
 
 router = APIRouter()
