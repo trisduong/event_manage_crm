@@ -1,8 +1,4 @@
-# Supermomos event management
-
-## Sequence Diagram
-
-![Sequence Diagram](./docs/sequence.png)
+# event management crm
 
 ## Key Features
 
@@ -22,6 +18,10 @@
 - AWS SES
 - Localstack (for test)
 - Docker + Docker Compose
+
+## Sequence Diagram
+
+![Sequence Diagram](./docs/sequence.png)
 
 ## Limitations of DynamoDB
 
