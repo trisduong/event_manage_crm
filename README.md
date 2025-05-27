@@ -1,4 +1,4 @@
-# event management crm
+# Simple demo event management CRM
 
 ## Key Features
 
