@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pynamodb
+pydantic[email]
+boto3
+celery[redis]
+redis
+localstack-client
+pydantic-settings
