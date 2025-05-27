@@ -1,4 +1,6 @@
 from fastapi import APIRouter, Query
+from collections import Counter
+
 from app.services.user_service import filter_users
 from app.services.email_service import queue_emails
 from app.schemas.email import EmailRequest
@@ -38,3 +40,46 @@ def send_emails(
         email_req.utm_campaign
     )
     return {"message": f"Queued email to {len(user_ids)} users"}
+
+
+@router.get("/analytics")
+def email_status_analytics(
+    utm_source: str | None = Query(None),
+    utm_medium: str | None = Query(None),
+    utm_campaign: str | None = Query(None),
+):
+    """
+    Return count of emails grouped by status (sent, failed, pending),
+    optionally filtered by UTM parameters.
+    """
+    status_counter = Counter()
+
+    scan_filter = {}
+    if utm_source:
+        scan_filter["utm_source"] = utm_source
+    if utm_medium:
+        scan_filter["utm_medium"] = utm_medium
+    if utm_campaign:
+        scan_filter["utm_campaign"] = utm_campaign
+
+    if scan_filter:
+        emails = EmailOutboxModel.scan(filter_condition=(
+            (EmailOutboxModel.utm_source == scan_filter.get("utm_source")) if "utm_source" in scan_filter else None
+        ) & (
+            (EmailOutboxModel.utm_medium == scan_filter.get("utm_medium")) if "utm_medium" in scan_filter else None
+        ) & (
+            (EmailOutboxModel.utm_campaign == scan_filter.get("utm_campaign")) if "utm_campaign" in scan_filter else None
+        ))
+    else:
+        emails = EmailOutboxModel.scan()
+
+    for email in emails:
+        status_counter[email.status] += 1
+
+    return {
+        "summary": {
+            "sent": status_counter.get("sent", 0),
+            "failed": status_counter.get("failed", 0),
+            "pending": status_counter.get("pending", 0),
+        }
+    }

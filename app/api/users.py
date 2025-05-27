@@ -7,7 +7,7 @@ from app.services.user_service import filter_users
 router = APIRouter()
 
 
-@router.post("/", response_model=UserOut)
+@router.post("", response_model=UserOut)
 def create_user(user: UserCreate):
     # Check if user already exists
     try:
@@ -32,7 +32,7 @@ def create_user(user: UserCreate):
     return user
 
 
-@router.get("/", response_model=List[UserOut])
+@router.get("", response_model=List[UserOut])
 def list_users(
     company: Optional[str] = Query(None),
     jobTitle: Optional[str] = Query(None),
