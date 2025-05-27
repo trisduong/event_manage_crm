@@ -31,7 +31,7 @@ While DynamoDB offers high scalability and low-latency lookups, it is **not well
 ### ❗ Requirement: Combine multiple filters in a single query  
 To support all filter combinations with high performance in DynamoDB, we would need to create multiple GSIs (Global Secondary Indexes). However, this quickly becomes expensive and hard to manage as filter permutations grow.
 
-## Suggested Improvement
+## Suggestion for Improvement
 
 ### ✅ Use OpenSearch for Advanced Filtering & Analytics
 
