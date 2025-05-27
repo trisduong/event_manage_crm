@@ -1,9 +1,5 @@
 # Supermomos event management
 
-## Architecture
-
-![Architecture Diagram](./docs/architecture.png)
-
 ## Sequence Diagram
 
 ![Sequence Diagram](./docs/sequence.png)
@@ -55,3 +51,8 @@ This approach provides:
 ### Data Sync Strategy
 
 We can sync changes from DynamoDB to OpenSearch using: DynamoDB Streams
+
+## Suggestion Architecture
+
+![Architecture Diagram](./docs/architecture.png)
+
